@@ -169,7 +169,11 @@ ghci&gt; circumference' 4.0
 
 <h2>Μεταβλητές τύπων</h2>
 <p>
-What do you think is the type of the <span class="fixed">head</span> function? Because <span class="fixed">head</span> takes a list of any type and returns the first element, so what could it be? Let's check!
+Ποιός πιστεύεις ότι είναι ο τύπος της συνάρτησης <span
+class="fixed">head</span>; 
+Η συνάρτηση <span class="fixed">head</span> παίρνει μια λίστα κάποιου τύπου και
+επιτρέφει το πρώτο στοιχείο της λίστας, άρα ποιός μπορεί να είναι ο τύπος της;
+Ας ελέγξουμε!
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :t head
@@ -177,16 +181,42 @@ head :: [a] -&gt; a
 </pre>
 <p>
 <img src="../s3.amazonaws.com/lyah/box.png" alt="box" class="left" width="130" height="93">
-Hmmm! What is this <span class="fixed">a</span>? Is it a type? Remember that we previously stated that types are written in capital case, so it can't exactly be a type. Because it's not in capital case it's actually a <em>type variable</em>. That means that <span class="fixed">a</span> can be of any type. This is much like generics in other languages, only in Haskell it's much more powerful because it allows us to easily write very general functions if they don't use any specific behavior of the types in them. Functions that have type variables are called <em>polymorphic functions</em>. The type declaration of <span class="fixed">head</span> states that it takes a list of any type and returns one element of that type.
+Ενδιαφέρον! Τι είναι αυτό το <span class="fixed">a</span>;
+Είναι τύπος;
+Προηγουμένως είπαμε ότι οι τύποι ξεκινούν με κεφαλάια, 
+άρα δεν μπορεί να είναι ακριβώς τύπος.
+Επειδή δεν ξεκινά με κεφαλαία είναι μια <em>μεταβλητή τύπων</em>. 
+Αυτό σημαίνει ότι το <span class="fixed">a</span> μπορεί να είναι κάθε τύπος. 
+Αυτό είναι σαν τα generics σε άλλες γλώσσες προγραμματισμού, 
+αλλά στην Haskell είναι πιο ισχυρό, επειδή μας επιτρέπει εύκολα να γράφουμε
+γενικές συναρτήσεις οι οποίες δεν χρησιμοποιούν κάποια συγκεκριμένη συμπεριφορά
+τύπων.
+Οι συναρτήσεις που έχουν μεταβλητές τύπων ονομάζονται <em>πολυμορφικές
+συναρτήσεις</em>. 
+Ο τύπος της συνάρτησης <span class="fixed">head</span> λέει ότι παίρνει σαν
+όρισμα μια λίστα κάποιου τύπου και επιστρέφει ένα στοιχείο του τύπου αυτού.
 </p>
-<p>Although type variables can have names longer than one character, we usually give them names of a, b, c, d &hellip;</p>
-<p>Remember <span class="fixed">fst</span>? It returns the first component of a pair. Let's examine its type.</p>
+<p>Αν και οι μεταβλητές τύπων μπορούν να έχουν ονόματα με πολλά γράμματα,
+συνήθως τους δίνουμε ονόματα όπως a, b, c, d &hellip;</p>
+<p>θυμάστε την συνάρτηση <span class="fixed">fst</span>;
+Επιστρέφει το πρώτο στοιχείο ενός ζεύγους.
+Ας εξετάσουμε τον τύπο της.
+</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :t fst
 fst :: (a, b) -&gt; a
 </pre>
 <p>
-We see that <span class="fixed">fst</span> takes a tuple which contains two types and returns an element which is of the same type as the pair's first component. That's why we can use <span class="fixed">fst</span> on a pair that contains any two types. Note that just because <span class="fixed">a</span> and <span class="fixed">b</span> are different type variables, they don't have to be different types. It just states that the first component's type and the return value's type are the same.
+Βλέπουμε ότι η συνάρτηση <span class="fixed">fst</span> παίρνει ένα ζέυγος που
+περιέχει δύο τύπους και επιστρέφει ένα στοιχείο που έχει τον ίδιο τύπο με το
+πρώτο στοιχείο του ζεύγους.
+Για τον λόγο αυτό μπορούμε να χρησιμοποιήσουμε την <span
+class="fixed">fst</span> σε ένα ζεύγος που περιέχει δυο οποιουδήποτε τύπους. 
+Προσεξτε ότι το γεγονός ότι οι 
+<span class="fixed">a</span> και <span class="fixed">b</span> είναι διαφορετικές
+μεταβλητές τύπων δεν σημαίνει ότι πρέπει να είναι και διαφορετικοί τύποι.
+Απλώς σημαίνει ότι ο τύπος του πρώτου στοιχείου του ζεύγους και του
+αποτελέσματος είναι ίδιοι.
 </p>
 <a name="typeclasses-101"></a><h2>Κλάσεις τυπων 101</h2>
 <img src="../s3.amazonaws.com/lyah/classes.png" alt="class" class="right" width="210" height="158">
