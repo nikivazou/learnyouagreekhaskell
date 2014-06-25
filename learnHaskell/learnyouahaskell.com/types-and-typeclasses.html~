@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+   "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<!-- Mirrored from learnyouahaskell.com/types-and-typeclasses by HTTrack Website Copier/3.x [XR&CO'2008], Wed, 25 Jun 2014 15:12:22 GMT -->
+<head>
+<title>Τύποι και κάσεις τύπων - Learn You a Haskell for Great Good!</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<base >
+<style type="text/css">
+	@import url('reset.css');
+	@import url('style.css');
+</style>
+<link rel="shortcut icon" href="favicon.png" type="image/png">
+        <link rel="prev" href="starting-out.html">
+        <link rel="next" href="syntax-in-functions.html">
+<link type="text/css" rel="stylesheet" href="sh/Styles/SyntaxHighlighter.css">
+<link href="rss.php" rel="alternate" type="application/rss+xml" title="Learn You a Haskell for Great Good! feed">
+</head>
+<body class="introcontent">
+<div class="bgwrapper">
+    <div id="content">
+                <div class="footdiv" style="margin-bottom:25px;">
+                <ul>
+                    <li style="text-align:left">
+                                                        <a href="starting-out.html" class="prevlink">Starting Out</a>
+                                            </li>
+                    <li style="text-align:center">
+                        <a href="chapters.html">Περιεχόμενα</a>
+                    </li>
+                    <li style="text-align:right">
+                                                        <a href="syntax-in-functions.html" class="nxtlink">Syntax in Functions</a>
+                                            </li>
+                </ul>
+            </div>
+        <h1>Τύποι και κλάσεις τύπων</h1>
+<a name="believe-the-type"></a><h2>Πίστεψε τον τύπο</h2>
+<img src="../s3.amazonaws.com/lyah/cow.png" alt="moo" class="left" width="180" height="127">
+<p>Όπως έχουμε ήδη αναφέρει, η Haskell έχει στατικό σύστημα τύπων.
+Ο τύπος κάθε έκφρασης είναι γνωστός κατά την μεταγλώτισση, γεγονός που οδηγεί σε ασφαλέστερο κώδικα.
+Αν γράψεις ένα προγραμμα στο οποίο προσπαθείς να διαιρέσεις μια τιμή αληθείας με έναν αριθμό, δεν θα μπορέσεις να το μεταγλωτίσεις.
+Αυτό είναι καλό αφού είναι καλύτερο αφού είναι καλύτερο αυτά τα λάθη να βρεθούν κατα την μεταγλώτιση παρα να παρουσιασει σφάλμα το προγραμμά σου.
+Τα πάντα στην Haskell έχουν τύπο, έτσι ο μεταγλωτιστής μπορεί να επαιξεργαστεί το προγραμά σου κατα την μεταγλώτιση.
+</p>
+<p>Αντίθετα με την Java ή την Pascal, η Haskell κάνει συμπερασμό τύπων.
+Αν γράψουμε έναν αριθμό, δεν πρεπει να δηλώσουμε στην Haskell ότι είναι αριθμός.
+Θα το <i>συμπεράνει</i> μόνη της, άρα δεν πρέπει πάντα να δηλώνουμε ρητά τους τύπους των συναρτήσεων και των εκφράσεων.
+Καλύψαμε κάποια βασικά στοιχεία της Haskell έχοντας μια επιφανειακή γνώση τύπων.
+Όμως, η κατανόηση του συστήματος τύπων είναι αναποσπαστο μέρος της γνώσης Haskell.</p>
+<p>Ο τύπος είναι σαν μια ετικέτα που κάθε έκφραση έχει.
+Μας λέει σε ποια κατοιγορία ανήκει αυτή η έκφραση.
+Η έκφραση <span class="fixed">True</span> είναι μια τιμή αλήθειας, ενώ η έκφραση <span class="fixed">"hello"</span> είναι μια ακολουθία χαρακτήρων, κτλ.</p>
+<p>Τώρα θα χρησιμοποιήσουμε τον GHCI για να εξετάσουμε τους τύπους κάποιων εκφράεων.
+Θα το κάνουμε αυτό χρησιμοποιώντας την εντολή <span class="fixed">:t</span> η οποία, ακολουθούμενη από μια έγκυρη έκφραση, μας λέει τον τύπο της έκφρασης.
+Ας το δοκιμάσουμε.</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; :t 'a'
+'a' :: Char
+ghci&gt; :t True
+True :: Bool
+ghci&gt; :t "HELLO!"
+"HELLO!" :: [Char]
+ghci&gt; :t (True, 'a')
+(True, 'a') :: (Bool, Char)
+ghci&gt; :t 4 == 5
+4 == 5 :: Bool
+</pre>
+<p>
+<img src="../s3.amazonaws.com/lyah/bomb.png" alt="bomb" class="right" width="171" height="144">
+Βλέπουμε ότι γράφοντας <span class="fixed">:t</span> σε μια έκφραση, τυπώνει την έκφραση ακολουθούμενη από 
+<span class="fixed">::</span> και τον τύπο της.
+Το <span class="fixed">::</span> διαβάζεται "έχει τύπο". 
+Οι συγκεκριμένοι τύποι έχουν πάντα το πρωτο γράμμα κεφαλαίο.
+Ο <span class="fixed">'a'</span>, όπως φαίνεται, έχει τύπο <span class="fixed">Char</span>. 
+Μπορούμε εύκολα να συμπεράνουμε ότι συμβολίζει <i>χαρακτήρες</i>. 
+Το <span class="fixed">True</span> έχει τύπο <span class="fixed">Bool</span> που συμβολίζει τον τυπο τιμών αληθείας. 
+Και αυτό βγαζει νόημα. Αλλά τι είναι αυτό;
+Εξετάζοντας τον τύπο του <span class="fixed">"HELLO!"</span> μας δίνει <span class="fixed">[Char]</span>. 
+Οι αγγίλες δηλώνουν λίστα. 
+Άρα διαβάζουμε αυτόν τον τύπο σαν <i>μια λίστα από χαρακτήρες</i>. 
+Αντίθετα με τις λίστες, κάθε πλειάδα έχει τον δικό της τυπο.
+Έτσι, η έκφραση <span class="fixed">(True, 'a')</span> έχει τύπο <span class="fixed">(Bool, Char)</span>, 
+ενώ η έκφραση <span class="fixed">('a','b','c')</span> έχει τύπο<span class="fixed">(Char, Char, Char)</span>. 
+Τέλος, η έκφραση <span class="fixed">4 == 5</span> θα επιστρέφει πάντα <span class="fixed">False</span>, άρα έχει τύπο <span class="fixed">Bool</span>.
+</p>
+<p>
+Και οι συναρτήσεις έχουν τύπους.
+Όταν γράφουμε μια συνάρτηση μπορούμε να δηλώσουμε ρητά τον τύπο της.
+Αυτό θεωρείτε γενικά καλή πρακτική, εκτός αν γραφουμε πολύ απλές συναρτήσεις.
+Από εδώ και πέρα, να δηλώνουμε τον τύπο κάθε συνάρτησης που γραφουμε.
+Θυμάστε την κατανόηση λιστών που χρησιμοποιήσαμε προηγουμένως, που φιλτράρει μια σειρά χαρακτήρων κρατώντας μόνο τους κεφαλαίους?
+Εδώ δηλώνουμε ρητα τον τύπο.
+</p>
+<pre name="code" class="haskell: hs">
+removeNonUppercase :: [Char] -&gt; [Char]
+removeNonUppercase st = [ c | c &lt;- st, c `elem` ['A'..'Z']] 
+</pre>
+<p>
+Η συνάρτηση <span class="fixed">removeNonUppercase</span> έχει τύπο <span class="fixed">[Char] -&gt; [Char]</span>, 
+που σημαίνει ότι αντιστοιχεί μια λίστα χαρακηρων σε μια λίστα χαρακτήρων.
+Δηλαδή, παίρνει μια λίστα χαρακτήρων σαν όρισμα και επιστρεφει μια λίστα χαρακτήρων σαν αποτλέλεσμα.
+Ο τύπος <span class="fixed">[Char]</span> είναι συνόνημος με τον τύπο <span class="fixed">String</span> 
+άρα είναι το ίδιο αν γράψουμε <span class="fixed">removeNonUppercase :: String -&gt; String</span>. 
+Δεν έπρεπε να δηλώσουμε ρητά τον τύπο αυτής της συνάρτησης, αφού ο μεταγλωτιστής μπορεί να συμπεράνει ότι είναι μια συνάρτηση από λίστα χαρακτήρων σε λίστα χαρακτήρων.
+Αλλά, πώς δηλώνουμε τον τύπο μιας συνάρτησης που παίρνει διάφορα ορίσματα;
+Για παράδειγμα, η ακόλουθη συνάρτηση παίρνει τριες ακεραίους και τους προσθέτει:
+</p>
+<pre name="code" class="haskell: hs">
+addThree :: Int -&gt; Int -&gt; Int -&gt; Int
+addThree x y z = x + y + z
+</pre>
+<p>Τα ορίσματα διαχωρίζονται με <span class="fixed">-&gt;</span> και δεν υπάρχει διαχωρισμός μεταξύ των ορισμάτων και του αποτελέσματος.
+Το αποτέλεσμα είναι το τελευταίο στοιχείο στην δήλωση και τα ορίσματα είναι τα τρια πρώτα στοιχεία.
+Αργότερα θα δούμε γιατί είναι όλα τα στοιχεία διαχωρισμένα με <span class="fixed">-&gt;</span> 
+αντί να υπάρχει ρητός διαχωρισμός μεταξύ των παραμέτρων και του αποτελέσματος, όπως για παράδειγμα <span class="fixed">Int, Int, Int -&gt; Int</span>.
+</p>
+<p>Αν θες να δώσεις στην συνάρτηση σου κάποιον τύπο και δεν ξέρεις τι τύπο πρέπει να δώσεις, μπορείς πάντα
+να γράψεις την συνάρτηση χωρίς τόπο και να παρεις τον τύπο γράφοντας <span class="fixed">:t</span>. 
+Οι συναρτήσεςι είναι και αυτές εκφράσεις, άρα η εντολή <span class="fixed">:t</span> δουλεύει και για αυτές.</p>
+<p>Ακολουθούν κάποιοι σύνηθεις τύποι.</p>
+<p>
+<span class="label type">Int</span> αναπαριστά ακεραίους. 
+Αναπαριστά πλήρεις αριθμους.
+Ο <span class="fixed">7</span> είναι <span class="fixed">Int</span>, αλλά ο <span class="fixed">7.2</span> δεν είναι. 
+Κάθε <span class="fixed">Int</span> έχει όριο, που σημαίνει ότι έχει μέγιστη και ελάχιστη τιμή.
+Συνήθως, σε ένα 32-bit μηχάνημα, ο μέγιστος <span class="fixed">Int</span> είναι 2147483647 και ο ελάχιστος είναι -2147483648.
+</p>
+<p><span class="label type">Integer</span> αναπαριστά, εεε &hellip; επισης ακεραίους. 
+Η κύρια διαφορά είναι ότι δεν έχει όριο, άρα μπορεί να χρησιμοποιηθεί για την αναπαράσταση πολύ πολύ μεγάλων αριθμών.
+Εννοώ πραγματικά μεγάλων.
+Όμως οι <span class="fixed">Int</span>, είναι πιο αποδοτικοί.
+</p>
+<pre name="code" class="haskell: hs">
+factorial :: Integer -&gt; Integer
+factorial n = product [1..n]
+</pre>
+<pre name="code" class="haskell: ghci">
+ghci&gt; factorial 50
+30414093201713378043612608166064768844377641568960512000000000000
+</pre>
+<p><span class="label type">Float</span> είναι οι πραγματικοί αριθμοί μονής ακριβειας.</p>
+<pre name="code" class="haskell: hs">
+circumference :: Float -&gt; Float
+circumference r = 2 * pi * r
+</pre>
+<pre name="code" class="haskell: ghci">
+ghci&gt; circumference 4.0
+25.132742
+</pre>
+<p><span class="label type">Double</span> είναι πραγματικοί αριθμοί με διπλή ακρίβεια!</p>
+<pre name="code" class="haskell: hs">
+circumference' :: Double -&gt; Double
+circumference' r = 2 * pi * r
+</pre>
+<pre name="code" class="haskell: ghci">
+ghci&gt; circumference' 4.0
+25.132741228718345
+</pre>
+<p>
+<span class="label type">Bool</span> είναι ο τύπος των τιμών αληθείας. Μπορεί να έχει μόνο δύο τιμές: <span class="fixed">True</span> και <span class="fixed">False</span>.
+</p>
+<p>
+<span class="label type">Char</span> represents a character. It's denoted by single quotes. A list of characters is a string.
+</p>
+<p>Οι πλειάδες είναι τύποι που εξαρτώνται από το μήκος τους και από τους τύπους του περιεχομένου τους, 
+άρα υπάρχει άπειρος αριθμός απο τούπους πλειάδων, που είναι πάρα πολλές για να τις καλύψουμε σε αυτό το συγγραμμα. 
+Σημειώνουμε ότι η άδεια πλειάδα <span class="label type">()</span> είναι επίσης τύπος που μπορεί να έχει μόνο μία τιμή: <span class="fixed">()</span></p>
+<a name="type-variables"></a>
+
+<h2>Μεταβλητές τύπων</h2>
+<p>
+What do you think is the type of the <span class="fixed">head</span> function? Because <span class="fixed">head</span> takes a list of any type and returns the first element, so what could it be? Let's check!
+</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; :t head
+head :: [a] -&gt; a
+</pre>
+<p>
+<img src="../s3.amazonaws.com/lyah/box.png" alt="box" class="left" width="130" height="93">
+Hmmm! What is this <span class="fixed">a</span>? Is it a type? Remember that we previously stated that types are written in capital case, so it can't exactly be a type. Because it's not in capital case it's actually a <em>type variable</em>. That means that <span class="fixed">a</span> can be of any type. This is much like generics in other languages, only in Haskell it's much more powerful because it allows us to easily write very general functions if they don't use any specific behavior of the types in them. Functions that have type variables are called <em>polymorphic functions</em>. The type declaration of <span class="fixed">head</span> states that it takes a list of any type and returns one element of that type.
+</p>
+<p>Although type variables can have names longer than one character, we usually give them names of a, b, c, d &hellip;</p>
+<p>Remember <span class="fixed">fst</span>? It returns the first component of a pair. Let's examine its type.</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; :t fst
+fst :: (a, b) -&gt; a
+</pre>
+<p>
+We see that <span class="fixed">fst</span> takes a tuple which contains two types and returns an element which is of the same type as the pair's first component. That's why we can use <span class="fixed">fst</span> on a pair that contains any two types. Note that just because <span class="fixed">a</span> and <span class="fixed">b</span> are different type variables, they don't have to be different types. It just states that the first component's type and the return value's type are the same.
+</p>
+<a name="typeclasses-101"></a><h2>Κλάσεις τυπων 101</h2>
+<img src="../s3.amazonaws.com/lyah/classes.png" alt="class" class="right" width="210" height="158">
+<p>A typeclass is a sort of interface that defines some behavior. If a type is a part of a typeclass, that means that it supports and implements the behavior the typeclass describes. A lot of people coming from OOP get confused by typeclasses because they think they are like classes in object oriented languages. Well, they're not. You can think of them kind of as Java interfaces, only better.
+</p>
+<p>What's the type signature of the <span class="fixed">==</span> function?</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; :t (==)
+(==) :: (Eq a) =&gt; a -&gt; a -&gt; Bool
+</pre>
+<div class="hintbox"><em>Note</em>: the equality operator, <span class="fixed">==</span> is a function. So are <span class="fixed">+</span>, <span class="fixed">*</span>, <span class="fixed">-</span>, <span class="fixed">/</span> and pretty much all operators. If a function is comprised only of special characters, it's considered an infix function by default. If we want to examine its type, pass it to another function or call it as a prefix function, we have to surround it in parentheses.</div>
+<p>Interesting. We see a new thing here, the <span class="fixed">=&gt;</span> symbol. Everything before the <span class="fixed">=&gt;</span> symbol is called a <em>class constraint</em>. We can read the previous type declaration like this: the equality function takes any two values that are of the same type and returns a <span class="fixed">Bool</span>. The type of those two values must be a member of the <span class="fixed">Eq</span> class (this was the class constraint).</p>
+<p>The <span class="fixed">Eq</span> typeclass provides an interface for testing for equality. Any type where it makes sense to test for equality between two values of that type should be a member of the <span class="fixed">Eq</span> class. All standard Haskell types except for IO (the type for dealing with input and output) and functions are a part of the <span class="fixed">Eq</span> typeclass.</p>
+<p>The <span class="fixed">elem</span> function has a type of <span class="fixed">(Eq a) =&gt; a -&gt; [a] -&gt; Bool</span> because it uses <span class="fixed">==</span> over a list to check whether some value we're looking for is in it.</p>
+<p>Some basic typeclasses:</p>
+<p><span class="label class">Eq</span> is used for types that support equality testing. The functions its members implement are <span class="fixed">==</span> and <span class="fixed">/=</span>. So if there's an <span class="fixed">Eq</span> class constraint for a type variable in a function, it uses <span class="fixed">==</span> or <span class="fixed">/=</span> somewhere inside its definition. All the types we mentioned previously except for functions are part of <span class="fixed">Eq</span>, so they can be tested for equality.</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; 5 == 5
+True
+ghci&gt; 5 /= 5
+False
+ghci&gt; 'a' == 'a'
+True
+ghci&gt; "Ho Ho" == "Ho Ho"
+True
+ghci&gt; 3.432 == 3.432
+True
+</pre>
+<p>
+<span class="label class">Ord</span> is for types that have an ordering.</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; :t (&gt;)
+(&gt;) :: (Ord a) =&gt; a -&gt; a -&gt; Bool
+</pre>
+<p>
+All the types we covered so far except for functions are part of <span class="fixed">Ord</span>. <span class="fixed">Ord</span> covers all the standard comparing functions such as <span class="fixed">&gt;</span>, <span class="fixed">&lt;</span>, <span class="fixed">&gt;=</span> and <span class="fixed">&lt;=</span>. The <span class="fixed">compare</span> function takes two <span class="fixed">Ord</span> members of the same type and returns an ordering. <span class="label type">Ordering</span> is a type that can be <span class="fixed">GT</span>, <span class="fixed">LT</span> or <span class="fixed">EQ</span>, meaning <i>greater than</i>, <i>lesser than</i> and <i>equal</i>, respectively. 
+<p>To be a member of <span class="fixed">Ord</span>, a type must first have membership in the prestigious and exclusive <span class="fixed">Eq</span> club.</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; "Abrakadabra" &lt; "Zebra"
+True
+ghci&gt; "Abrakadabra" `compare` "Zebra"
+LT
+ghci&gt; 5 &gt;= 2
+True
+ghci&gt; 5 `compare` 3
+GT
+</pre>
+<p>Members of <span class="label class">Show</span> can be presented as strings. All types covered so far except for functions are a part of <span class="fixed">Show</span>. The most used function that deals with the <span class="fixed">Show</span> typeclass is <span class="fixed">show</span>. It takes a value whose type is a member of <span class="fixed">Show</span> and presents it to us as a string.</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; show 3
+"3"
+ghci&gt; show 5.334
+"5.334"
+ghci&gt; show True
+"True"
+</pre>
+<p><span class="label class">Read</span> is sort of the opposite typeclass of <span class="fixed">Show</span>. The <span class="fixed">read</span> function takes a string and returns a type which is a member of <span class="fixed">Read</span>.</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; read "True" || False
+True
+ghci&gt; read "8.2" + 3.8
+12.0
+ghci&gt; read "5" - 2
+3
+ghci&gt; read "[1,2,3,4]" ++ [3]
+[1,2,3,4,3]
+</pre>
+<p>So far so good. Again, all types covered so far are in this typeclass. But what happens if we try to do just <span class="fixed">read "4"</span>?</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; read "4"
+&lt;interactive&gt;:1:0:
+    Ambiguous type variable `a' in the constraint:
+      `Read a' arising from a use of `read' at &lt;interactive&gt;:1:0-7
+    Probable fix: add a type signature that fixes these type variable(s)
+</pre>
+<p>What GHCI is telling us here is that it doesn't know what we want in return. Notice that in the previous uses of <span class="fixed">read</span> we did something with the result afterwards. That way, GHCI could infer what kind of result we wanted out of our <span class="fixed">read</span>. If we used it as a boolean, it knew it had to return a <span class="fixed">Bool</span>. But now, it knows we want some type that is part of the <span class="fixed">Read</span> class, it just doesn't know which one. Let's take a look at the type signature of <span class="fixed">read</span>.</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; :t read
+read :: (Read a) =&gt; String -&gt; a
+</pre>
+<p>
+See? It returns a type that's part of <span class="fixed">Read</span> but if we don't try to use it in some way later, it has no way of knowing which type. That's why we can use explicit <em>type annotations</em>. Type annotations are a way of explicitly saying what the type of an expression should be. We do that by adding <span class="fixed">::</span> at the end of the expression and then specifying a type. Observe:
+</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; read "5" :: Int
+5
+ghci&gt; read "5" :: Float
+5.0
+ghci&gt; (read "5" :: Float) * 4
+20.0
+ghci&gt; read "[1,2,3,4]" :: [Int]
+[1,2,3,4]
+ghci&gt; read "(3, 'a')" :: (Int, Char)
+(3, 'a')
+</pre>
+<p>Most expressions are such that the compiler can infer what their type is by itself. But sometimes, the compiler doesn't know whether to return a value of type <span class="fixed">Int</span> or <span class="fixed">Float</span> for an expression like <span class="fixed">read "5"</span>. To see what the type is, Haskell would have to actually evaluate <span class="fixed">read "5"</span>. But since Haskell is a statically typed language, it has to know all the types before the code is compiled (or in the case of GHCI, evaluated). So we have to tell Haskell: "Hey, this expression should have this type, in case you don't know!".</p>
+<p><span class="label class">Enum</span> members are sequentially ordered types &mdash; they can be enumerated. The main advantage of the <span class="fixed">Enum</span> typeclass is that we can use its types in list ranges. They also have defined successors and predecesors, which you can get with the <span class="fixed">succ</span> and <span class="fixed">pred</span> functions. Types in this class: <span class="fixed">()</span>, <span class="fixed">Bool</span>, <span class="fixed">Char</span>, <span class="fixed">Ordering</span>, <span class="fixed">Int</span>, <span class="fixed">Integer</span>, <span class="fixed">Float</span> and <span class="fixed">Double</span>.</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; ['a'..'e']
+"abcde"
+ghci&gt; [LT .. GT]
+[LT,EQ,GT]
+ghci&gt; [3 .. 5]
+[3,4,5]
+ghci&gt; succ 'B'
+'C'
+</pre>
+<p><span class="label class">Bounded</span> members have an upper and a lower bound.</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; minBound :: Int
+-2147483648
+ghci&gt; maxBound :: Char
+'\1114111'
+ghci&gt; maxBound :: Bool
+True
+ghci&gt; minBound :: Bool
+False
+</pre>
+<p><span class="fixed">minBound</span> and <span class="fixed">maxBound</span> are interesting because they have a type of <span class="fixed">(Bounded a) =&gt; a</span>. In a sense they are polymorphic constants.</p>
+<p>All tuples are also part of <span class="fixed">Bounded</span> if the components are also in it.</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; maxBound :: (Bool, Int, Char)
+(True,2147483647,'\1114111')
+</pre>
+<p><span class="label class">Num</span> is a numeric typeclass. Its members have the property of being able to act like numbers. Let's examine the type of a number.</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; :t 20
+20 :: (Num t) =&gt; t
+</pre>
+<p>It appears that whole numbers are also polymorphic constants. They can act like any type that's a member of the <span class="fixed">Num</span> typeclass.</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; 20 :: Int
+20
+ghci&gt; 20 :: Integer
+20
+ghci&gt; 20 :: Float
+20.0
+ghci&gt; 20 :: Double
+20.0
+</pre>
+<p>Those are types that are in the <span class="fixed">Num</span> typeclass. If we examine the type of <span class="fixed">*</span>, we'll see that it accepts all numbers.</p>
+<pre name="code" class="haskell: ghci">
+ghci&gt; :t (*)
+(*) :: (Num a) =&gt; a -&gt; a -&gt; a
+</pre>
+<p>
+It takes two numbers of the same type and returns a number of that type. That's why <span class="fixed">(5 :: Int) * (6 :: Integer)</span> will result in a type error whereas <span class="fixed">5 * (6 :: Integer)</span> will work just fine and produce an <span class="fixed">Integer</span> because <span class="fixed">5</span> can act like an <span class="fixed">Integer</span> or an <span class="fixed">Int</span>.
+</p>
+<p>To join <span class="fixed">Num</span>, a type must already be friends with <span class="fixed">Show</span> and <span class="fixed">Eq</span>.</p>
+<p><span class="class label">Integral</span> is also a numeric typeclass. <span class="fixed">Num</span> includes all numbers, including real numbers and integral numbers, <span class="fixed">Integral</span> includes only integral (whole) numbers. In this typeclass are <span class="fixed">Int</span> and <span class="fixed">Integer</span>.</p>
+<p><span class="class label">Floating</span> includes only floating point numbers, so <span class="fixed">Float</span> and <span class="fixed">Double</span>.</p>
+<p>A very useful function for dealing with numbers is <span class="label function">fromIntegral</span>. It has a type declaration of <span class="fixed">fromIntegral :: (Num b, Integral a) =&gt; a -&gt; b</span>. From its type signature we see that it takes an integral number and turns it into a more general number. That's useful when you want integral and floating point types to work together nicely. For instance, the <span class="fixed">length</span> function has a type declaration of <span class="fixed">length :: [a] -&gt; Int</span> instead of having a more general type of <span class="fixed">(Num b) =&gt; length :: [a] -&gt; b</span>. I think that's there for historical reasons or something, although in my opinion, it's pretty stupid. Anyway, if we try to get a length of a list and then add it to <span class="fixed">3.2</span>, we'll get an error because we tried to add together an <span class="fixed">Int</span> and a floating point number. So to get around this, we do <span class="fixed">fromIntegral (length [1,2,3,4]) + 3.2</span> and it all works out.</p>
+<p>Notice that <span class="fixed">fromIntegral</span> has several class constraints in its type signature. That's completely valid and as you can see, the class constraints are separated by commas inside the parentheses.</p>
+
+                <div class="footdiv">
+                <ul>
+                    <li style="text-align:left">
+                                                        <a href="starting-out.html" class="prevlink">Starting Out</a>
+                                            </li>
+                    <li style="text-align:center">
+                        <a href="chapters.html">Table of contents</a>
+                    </li>
+                    <li style="text-align:right">
+                                                        <a href="syntax-in-functions.html" class="nxtlink">Syntax in Functions</a>
+                                            </li>
+                </ul>
+            </div>
+        </div>
+    <script type="text/javascript" src="sh/Scripts/shCore.js"></script>
+    <script type="text/javascript" src="shBrushHaskell.js"></script>
+    <script type="text/javascript" src="shBrushPlain.js"></script>
+    <script type="text/javascript">
+    dp.SyntaxHighlighter.ClipboardSwf = 'sh/Scripts/clipboard.swf';
+    dp.SyntaxHighlighter.HighlightAll('code', false, false, false, 1, false);
+    </script>
+</div>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-4461592-3");
+pageTracker._trackPageview();
+</script>
+</body>
+
+<!-- Mirrored from learnyouahaskell.com/types-and-typeclasses by HTTrack Website Copier/3.x [XR&CO'2008], Wed, 25 Jun 2014 15:12:23 GMT -->
+</html>

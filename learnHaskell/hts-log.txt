@@ -1,0 +1,18 @@
+HTTrack3.46+libhtsjava.so.2 launched on Wed, 25 Jun 2014 08:11:29 at http://learnyouahaskell.com/ +*.png +*.gif +*.jpg +*.css +*.js -ad.doubleclick.net/*
+(webhttrack -q -%i -w http://learnyouahaskell.com/ -O "/home/niki/websites/learnHaskell" -n -%P -N0 -s2 -p7 -D -a -K0 -c4 -%k -A25000 -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2008], %s -->" +*.png +*.gif +*.jpg +*.css +*.js -ad.doubleclick.net/* -%s -%u )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+08:13:14	Error: 	"Not Found" (404) at link learnyouahaskell.com/folds (from learnyouahaskell.com/for-a-few-monads-more)
+08:13:14	Error: 	"Not Found" (404) at link learnyouahaskell.com/reverse-polish-notation-calculator (from learnyouahaskell.com/for-a-few-monads-more)
+08:13:15	Warning: 	File seems complete (same size), but there was a cache read error (4294967295): learnyouahaskell.com/sh/Scripts/clipboard.swf
+08:13:20	Error: 	"" (404) at link learnyouahaskell.com/folds (from learnyouahaskell.com/for-a-few-monads-more)
+08:13:20	Error: 	"" (404) at link learnyouahaskell.com/reverse-polish-notation-calculator (from learnyouahaskell.com/for-a-few-monads-more)
+
+HTTrack Website Copier/3.46 mirror complete in 1 minutes 51 seconds : 159 links scanned, 160 files written (2456604 bytes overall) [2528234 bytes received at 22776 bytes/sec]
+(4 errors, 1 warnings, 0 messages)
+08:13:20	Warning: 	file not stored in cache due to bogus state (broken size): s3.amazonaws.com/lyah/justice.png
+08:13:20	Info: 	Top index rebuilt (done)
