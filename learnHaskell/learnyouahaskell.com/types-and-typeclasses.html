@@ -235,13 +235,28 @@ ghci&gt; :t (==)
 Όπως και οι τελεστές <span class="fixed">+</span>, <span class="fixed">*</span>, <span class="fixed">-</span>, <span class="fixed">/</span> 
 και σχεδόν όλοι οι τελεστές.
 Αν μια συνάρτηση αποτελείτε μόνο από ειδικούς χαρακτήρες, συμπεριφέρεται σαν ένθετη (infix), απο προεπιλογή.
-HERE If a function is comprised only of special characters, it's considered an infix function by default. 
-If we want to examine its type, pass it to another function or call it as a prefix function, we have to surround it in parentheses.</div>
-<p>Interesting. We see a new thing here, the <span class="fixed">=&gt;</span> symbol. Everything before the <span class="fixed">=&gt;</span> symbol is called a <em>class constraint</em>. We can read the previous type declaration like this: the equality function takes any two values that are of the same type and returns a <span class="fixed">Bool</span>. The type of those two values must be a member of the <span class="fixed">Eq</span> class (this was the class constraint).</p>
-<p>The <span class="fixed">Eq</span> typeclass provides an interface for testing for equality. Any type where it makes sense to test for equality between two values of that type should be a member of the <span class="fixed">Eq</span> class. All standard Haskell types except for IO (the type for dealing with input and output) and functions are a part of the <span class="fixed">Eq</span> typeclass.</p>
-<p>The <span class="fixed">elem</span> function has a type of <span class="fixed">(Eq a) =&gt; a -&gt; [a] -&gt; Bool</span> because it uses <span class="fixed">==</span> over a list to check whether some value we're looking for is in it.</p>
+Αν θέλουμε να εξετάσουμε τον τύπο της, να την περάσουμε σαν όρισμα σε άλλη συνάρτηση ή να την καλέσουμε σαν πρόθετη (prefix) συνάρτηση, πρέπει να την περικλείσουμε σε παρενθέσεις.
+</div>
+<p>Ενδιαφέρον. Θα δούμε κάτι νέο τώρα, το σύμβολο <span class="fixed">=&gt;</span>. 
+Ο,τιδήποτε βρήσκεται πριν το σύμβολο <span class="fixed">=&gt;</span> ονομάζεται <em>περιορισμός κλάσης</em>. 
+Μπορούμε να διαβάσουμε τον προηγούμε τύπο σαν: 
+η συνάρτηση ισότητας παίρνει δύο οποιεσδήποτε τιμές που έχουν τον ίδιο τύπο
+και επιστρέφει μια τιμή τύπου <span class="fixed">Bool</span>. 
+Ο τύπος των δύο αυτών τιμών πρέπει να είναι μέλος της κλάσης <span class="fixed">Eq</span> (αυτός ήταν ο περιορισμός κλάσης).</p>
+<p>Η κλάση τύπων <span class="fixed">Eq</span> παρέχει μια διεπαφή που ελέγχει ισότητα.
+Για κάποιον τύπο, αν θέλουμε να ελέγξουμε αν δύο τιμές του τύπου είναι ίσες, τότε ο τύπος πρέπει να είναι μέλος της κλάσης <span class="fixed">Eq</span>. 
+Όλοι οι προκαθορισμένοι τύποι της Haskell, εκτός από τον τύπο ΙΟ (που είναι ο τύπος που επιτρέπει εισαγωγή και εξαγωγή δεδομένων) και τους τύπους συναρήσεων, 
+είναι μέλη της κλάσης τύπων <span class="fixed">Eq</span>.</p>
+<p>Η συνάρτηση <span class="fixed">elem</span> έχει τύπο <span class="fixed">(Eq a) =&gt; a -&gt; [a] -&gt; Bool</span> 
+επειδή χρησιμοποιεί τον τελεστή <span class="fixed">==</span> σε μια λίστα για να ελέγξει αν η τιμή που ψάχνουμε βρίσκεται στην λίστα.</p>
 <p>Some basic typeclasses:</p>
-<p><span class="label class">Eq</span> is used for types that support equality testing. The functions its members implement are <span class="fixed">==</span> and <span class="fixed">/=</span>. So if there's an <span class="fixed">Eq</span> class constraint for a type variable in a function, it uses <span class="fixed">==</span> or <span class="fixed">/=</span> somewhere inside its definition. All the types we mentioned previously except for functions are part of <span class="fixed">Eq</span>, so they can be tested for equality.</p>
+<p>Η κλάση <span class="label class">Eq</span> χρησιμοποιείται για τύπους που στηρίζουν έλεγχο ισότητας.
+Οι συναρτήσεις που όλα τα μέλη της υλοποιούν είναι <span class="fixed">==</span> και <span class="fixed">/=</span>. 
+Άρα, αν υπάρχει ο περιορισμός κλάσης <span class="fixed">Eq</span> για κάποια μεταβλητή τύπων σε μια συνάρτηση, 
+η συνάρτηση χρησιμοποιεί <span class="fixed">==</span> ή <span class="fixed">/=</span> κάπου στον ορισμό της.
+Όλοι οι τύποι που έχουμε δει ως τώρα, εκτός από τις συναρτήσεις, είναι μέλη της κλάσης <span class="fixed">Eq</span>, 
+άρα μπορούμε να τους ελέγξουμε για ισότητα.
+</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; 5 == 5
 True
@@ -255,14 +270,19 @@ ghci&gt; 3.432 == 3.432
 True
 </pre>
 <p>
-<span class="label class">Ord</span> is for types that have an ordering.</p>
+Η κλάση <span class="label class">Ord</span> είναι για τους τύπους που έχουν διάταξη.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :t (&gt;)
 (&gt;) :: (Ord a) =&gt; a -&gt; a -&gt; Bool
 </pre>
 <p>
-All the types we covered so far except for functions are part of <span class="fixed">Ord</span>. <span class="fixed">Ord</span> covers all the standard comparing functions such as <span class="fixed">&gt;</span>, <span class="fixed">&lt;</span>, <span class="fixed">&gt;=</span> and <span class="fixed">&lt;=</span>. The <span class="fixed">compare</span> function takes two <span class="fixed">Ord</span> members of the same type and returns an ordering. <span class="label type">Ordering</span> is a type that can be <span class="fixed">GT</span>, <span class="fixed">LT</span> or <span class="fixed">EQ</span>, meaning <i>greater than</i>, <i>lesser than</i> and <i>equal</i>, respectively. 
-<p>To be a member of <span class="fixed">Ord</span>, a type must first have membership in the prestigious and exclusive <span class="fixed">Eq</span> club.</p>
+Όλοι οι τύποι που είδαμε ως τώρα, εκτός από τους τύπους συναρτήσεων, είναι μέλη της κλάσης <span class="fixed">Ord</span>. 
+Η κλάση <span class="fixed">Ord</span> καλύπτει όλες τις συναρτήσεις συγκρισης, όπως <span class="fixed">&gt;</span>, <span class="fixed">&lt;</span>, <span class="fixed">&gt;=</span> και <span class="fixed">&lt;=</span>. 
+Η συνάρτηση <span class="fixed">compare</span> παίρνει δύο μέλη της κλάσης <span class="fixed">Ord</span> του ίδιου τύπου και επιστρέφει μια διάταξη.
+Ο τύπος <span class="label type">Ordering</span> έχει τιμές <span class="fixed">GT</span>, <span class="fixed">LT</span> και <span class="fixed">EQ</span>, 
+που σημαίνουν <i>μεγαλύτερο από</i>, <i>μικρότερο από</i> και <i>ίσο με</i>, αντίστιχα. 
+<p>Για να είναι μέλος της κλάσης <span class="fixed">Ord</span>, 
+ένας τύπος πρέπει προηγουμένος να είναι μέλος της αποκλειστικής και περιβλεπτης κλάσης <span class="fixed">Eq</span>.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; "Abrakadabra" &lt; "Zebra"
 True
@@ -273,7 +293,11 @@ True
 ghci&gt; 5 `compare` 3
 GT
 </pre>
-<p>Members of <span class="label class">Show</span> can be presented as strings. All types covered so far except for functions are a part of <span class="fixed">Show</span>. The most used function that deals with the <span class="fixed">Show</span> typeclass is <span class="fixed">show</span>. It takes a value whose type is a member of <span class="fixed">Show</span> and presents it to us as a string.</p>
+<p>Μέλη της κλάσης <span class="label class">Show</span> μπορούν να παρουσιαστούν σαν ακολουθία χαρακτήρων.
+Όλοι οι τύποι που έχουμε δει ως τώρα, εκτός από τις συναρτήσεις είναι μέλη της κλάσης <span class="fixed">Show</span>. 
+Η πιο σύνηθης συνάρτηση της κλάσης τύπων <span class="fixed">Show</span> είναι η <span class="fixed">show</span>. 
+Η συνάρτηση αυτή παίρνει σαν όρισμα μια τιμή με τύπο μέλος της κλάσης <span class="fixed">Show</span> και την παριστά σαν μια ακολουθία χαρακτήρων.
+</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; show 3
 "3"
@@ -282,7 +306,8 @@ ghci&gt; show 5.334
 ghci&gt; show True
 "True"
 </pre>
-<p><span class="label class">Read</span> is sort of the opposite typeclass of <span class="fixed">Show</span>. The <span class="fixed">read</span> function takes a string and returns a type which is a member of <span class="fixed">Read</span>.</p>
+<p>Η κλάση <span class="label class">Read</span> είναι η αντίθετη της κλάσης τύπων <span class="fixed">Show</span>. 
+Η συνάρτηση <span class="fixed">read</span> παίρνει σαν όριμα μια ακολουθία χαρατκήρων και επιστρέφει μια τιμή με τύπο μέλος της κλάσης <span class="fixed">Read</span>.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; read "True" || False
 True
@@ -293,7 +318,10 @@ ghci&gt; read "5" - 2
 ghci&gt; read "[1,2,3,4]" ++ [3]
 [1,2,3,4,3]
 </pre>
-<p>So far so good. Again, all types covered so far are in this typeclass. But what happens if we try to do just <span class="fixed">read "4"</span>?</p>
+<p>
+Καλά ως εδώ!
+Όπως είπαμε, όλοι οι τύποι που έχουμε δει ως τώρα είναι μέλη αυτής της κλάσης τύπων.
+Αλλά τι γίνεται αν προσπαθήσουμε να κάνουμε απλώς <span class="fixed">read "4"</span>;</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; read "4"
 &lt;interactive&gt;:1:0:
@@ -301,13 +329,24 @@ ghci&gt; read "4"
       `Read a' arising from a use of `read' at &lt;interactive&gt;:1:0-7
     Probable fix: add a type signature that fixes these type variable(s)
 </pre>
-<p>What GHCI is telling us here is that it doesn't know what we want in return. Notice that in the previous uses of <span class="fixed">read</span> we did something with the result afterwards. That way, GHCI could infer what kind of result we wanted out of our <span class="fixed">read</span>. If we used it as a boolean, it knew it had to return a <span class="fixed">Bool</span>. But now, it knows we want some type that is part of the <span class="fixed">Read</span> class, it just doesn't know which one. Let's take a look at the type signature of <span class="fixed">read</span>.</p>
+<p>Εδώ ο GHCI μας λέει ότι δεν ξέρει τι θέλουμε να επιστρέψει.
+Προσέξτε ότι σε όλες τις προηγούμενες χρήσεις της συνάρτησης <span class="fixed">read</span> χρησιμοποιούσαμε το αποτέλεσμα μετά.
+Με τον τρόπο αυτό, ο GHCI μπορούσε να συμπεράνει τι τύπο αποτελέσματος θέλαμε να επιστρέψει η <span class="fixed">read</span>. 
+Αν το χρησιμοποιούσαμε σαν τιμή αλήθειας, ήξερε ότι έπρεπε να επιστρέψει μια τιμή τύπου <span class="fixed">Bool</span>. 
+Τώρα, ξέρει ότι θέλουμε κάποιο τύπο που είναι μέλος της κλάσης <span class="fixed">Read</span>, αλλά δεν ξέρει ακριβώς ποιον τύπο.
+Ας δούμε καλύτερα τον τύπο της συνάρτησης <span class="fixed">read</span>.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :t read
 read :: (Read a) =&gt; String -&gt; a
 </pre>
 <p>
-See? It returns a type that's part of <span class="fixed">Read</span> but if we don't try to use it in some way later, it has no way of knowing which type. That's why we can use explicit <em>type annotations</em>. Type annotations are a way of explicitly saying what the type of an expression should be. We do that by adding <span class="fixed">::</span> at the end of the expression and then specifying a type. Observe:
+Βλέπετε; Επιστρέφει έναν τύπο που είναι μέλος της κλάσης <span class="fixed">Read</span> 
+αλλά αν δεν χρησιμοποιήσουμε το αποτέλεσμα με κάποιον τρόπο μετά, δεν μπορεί να ξέρει ποιός είναι αυτός ο τύπος. 
+Για τον λόγο αυτό μπορούμε να χρησιμοποιήσουμε ρητες
+<em>δηλώσεις τύπων</em>. 
+Οι δηλώσεις τύπων είναι ένας τρόπος να πούμε ρητά ποιός πρέπει να είναι ο τύπος μιας έκφρασης.
+Το κάνουμε αυτό προσθέτοντας <span class="fixed">::</span> στο τέλος της έκφρασης και μετά δηλνουμε τον τύπος της.
+Κοιτάξτε:
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; read "5" :: Int
@@ -321,8 +360,17 @@ ghci&gt; read "[1,2,3,4]" :: [Int]
 ghci&gt; read "(3, 'a')" :: (Int, Char)
 (3, 'a')
 </pre>
-<p>Most expressions are such that the compiler can infer what their type is by itself. But sometimes, the compiler doesn't know whether to return a value of type <span class="fixed">Int</span> or <span class="fixed">Float</span> for an expression like <span class="fixed">read "5"</span>. To see what the type is, Haskell would have to actually evaluate <span class="fixed">read "5"</span>. But since Haskell is a statically typed language, it has to know all the types before the code is compiled (or in the case of GHCI, evaluated). So we have to tell Haskell: "Hey, this expression should have this type, in case you don't know!".</p>
-<p><span class="label class">Enum</span> members are sequentially ordered types &mdash; they can be enumerated. The main advantage of the <span class="fixed">Enum</span> typeclass is that we can use its types in list ranges. They also have defined successors and predecesors, which you can get with the <span class="fixed">succ</span> and <span class="fixed">pred</span> functions. Types in this class: <span class="fixed">()</span>, <span class="fixed">Bool</span>, <span class="fixed">Char</span>, <span class="fixed">Ordering</span>, <span class="fixed">Int</span>, <span class="fixed">Integer</span>, <span class="fixed">Float</span> and <span class="fixed">Double</span>.</p>
+<p>Για τις περισσότερες εκφράσεις ο μεταγλωτιστής μπορεί μόνος του να συμπεράνει τον τύπο τους.
+Κάποιες φορές όμως, ο μεταγλωτιστής δεν ξέρει αν πρέπει να επιστρέψει μια τιμή με τύπο
+<span class="fixed">Int</span> ή <span class="fixed">Float</span> για μια έκφραση όπως <span class="fixed">read "5"</span>. 
+Για να καταλάβει τον τύπο, η Haskell πρέπει να αποτιμήσει την έκφραση <span class="fixed">read "5"</span>. 
+Αλλά, η Haskell έχει στατικό σύστημα τύπων, 
+iπου σημαίνει ότι πρέπει να ξέρει τους τύπους όλων των εκφράσεων πριν μεταγλωτίσει τον κώδικα 
+(ή στην περιπτωση του GHCI, πριν τον αποτιμήσει). 
+Για τον λόγο αυτό πρέπει να πούμε στην Haskell: 
+"Ε, αυτή η έκφραση έχει αυτόν τον τύπο, αν δεν το ξέρεις!".</p>
+<p>
+<span class="label class">Enum</span> members are sequentially ordered types &mdash; they can be enumerated. The main advantage of the <span class="fixed">Enum</span> typeclass is that we can use its types in list ranges. They also have defined successors and predecesors, which you can get with the <span class="fixed">succ</span> and <span class="fixed">pred</span> functions. Types in this class: <span class="fixed">()</span>, <span class="fixed">Bool</span>, <span class="fixed">Char</span>, <span class="fixed">Ordering</span>, <span class="fixed">Int</span>, <span class="fixed">Integer</span>, <span class="fixed">Float</span> and <span class="fixed">Double</span>.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; ['a'..'e']
 "abcde"
