@@ -23,7 +23,7 @@
                 <div class="footdiv" style="margin-bottom:25px;">
                 <ul>
                     <li style="text-align:left">
-                                                        <a href="starting-out.html" class="prevlink">Starting Out</a>
+                                                        <a href="starting-out.html" class="prevlink">Ας ξεκινήσουμε!</a>
                                             </li>
                     <li style="text-align:center">
                         <a href="chapters.html">Περιεχόμενα</a>
@@ -370,7 +370,14 @@ iπου σημαίνει ότι πρέπει να ξέρει τους τύπου
 Για τον λόγο αυτό πρέπει να πούμε στην Haskell: 
 "Ε, αυτή η έκφραση έχει αυτόν τον τύπο, αν δεν το ξέρεις!".</p>
 <p>
-<span class="label class">Enum</span> members are sequentially ordered types &mdash; they can be enumerated. The main advantage of the <span class="fixed">Enum</span> typeclass is that we can use its types in list ranges. They also have defined successors and predecesors, which you can get with the <span class="fixed">succ</span> and <span class="fixed">pred</span> functions. Types in this class: <span class="fixed">()</span>, <span class="fixed">Bool</span>, <span class="fixed">Char</span>, <span class="fixed">Ordering</span>, <span class="fixed">Int</span>, <span class="fixed">Integer</span>, <span class="fixed">Float</span> and <span class="fixed">Double</span>.</p>
+Τα μέλη της κλάσης
+<span class="label class">Enum</span> 
+είναι τύποι που μπορείς να διατάξεις σειριακά &mdash; δηλαδή αριθμήσιμοι τύποι.
+Το μεγαλύτερο πλεονέκτημα της κλάσης <span class="fixed">Enum</span> 
+είναι ότι μπορούμε να χρησιμοποιήσουμε τους τύπους της σε λίστα απαρίθμησης.
+Επιπλέον έχουν ορισμένες συναρτήσεις για τον επόμενο και τον προηγούμενο, που μπορείς να χρησιμοποιήσεις καλώντας τις συναρτήσεις <span class="fixed">succ</span> και <span class="fixed">pred</span> αντίστοιχα.
+Μέλη αυτής της κλάσης είναι οι τύποι:
+<span class="fixed">()</span>, <span class="fixed">Bool</span>, <span class="fixed">Char</span>, <span class="fixed">Ordering</span>, <span class="fixed">Int</span>, <span class="fixed">Integer</span>, <span class="fixed">Float</span> και <span class="fixed">Double</span>.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; ['a'..'e']
 "abcde"
@@ -381,7 +388,7 @@ ghci&gt; [3 .. 5]
 ghci&gt; succ 'B'
 'C'
 </pre>
-<p><span class="label class">Bounded</span> members have an upper and a lower bound.</p>
+<p>Τα μέλη της κλάσης <span class="label class">Bounded</span> έχουν άνω και κάτω φράγμα.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; minBound :: Int
 -2147483648
@@ -392,18 +399,24 @@ True
 ghci&gt; minBound :: Bool
 False
 </pre>
-<p><span class="fixed">minBound</span> and <span class="fixed">maxBound</span> are interesting because they have a type of <span class="fixed">(Bounded a) =&gt; a</span>. In a sense they are polymorphic constants.</p>
-<p>All tuples are also part of <span class="fixed">Bounded</span> if the components are also in it.</p>
+<p>Οι σταθερές <span class="fixed">minBound</span> και <span class="fixed">maxBound</span> είναι ενδιαφέρουσες επειδή έχουν τύπο <span class="fixed">(Bounded a) =&gt; a</span>. 
+Κατά κάποιον τρόπο, είναι πολυμορφικές σταθερές.
+</p>
+<p>Όλες οι πλοιάδες είναι μέλη της κλάσης <span class="fixed">Bounded</span> 
+αν είναι τα μέλη τους.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; maxBound :: (Bool, Int, Char)
 (True,2147483647,'\1114111')
 </pre>
-<p><span class="label class">Num</span> is a numeric typeclass. Its members have the property of being able to act like numbers. Let's examine the type of a number.</p>
+<p>Η κλάση <span class="label class">Num</span> είναι η κλάση των αριθμών.
+Τα μέλη της συμπεριφέρονται σαν αριθμοί.
+Ας εξετάσουμε τον τύπο ενός αριθμού.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :t 20
 20 :: (Num t) =&gt; t
 </pre>
-<p>It appears that whole numbers are also polymorphic constants. They can act like any type that's a member of the <span class="fixed">Num</span> typeclass.</p>
+<p>Παρατηρούμε ότι οι ακέραιοι αριθμοί είναι επίσης πολυμορφικές σταθερές.
+Μπορούν να συμπεροφέρονται σαν κάθε τύπο που είναι μέλος της κλάσης <span class="fixed">Num</span>.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; 20 :: Int
 20
@@ -414,27 +427,48 @@ ghci&gt; 20 :: Float
 ghci&gt; 20 :: Double
 20.0
 </pre>
-<p>Those are types that are in the <span class="fixed">Num</span> typeclass. If we examine the type of <span class="fixed">*</span>, we'll see that it accepts all numbers.</p>
+<p>Αυτοί είναι οι τύπου που είναι μέλη της κλάσης <span class="fixed">Num</span>. 
+Αν εξετάσουμε τον τύπο του τελεστή <span class="fixed">*</span>, θα δούμε ότι αποδέχεται κάθε αριθμό.</p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :t (*)
 (*) :: (Num a) =&gt; a -&gt; a -&gt; a
 </pre>
 <p>
-It takes two numbers of the same type and returns a number of that type. That's why <span class="fixed">(5 :: Int) * (6 :: Integer)</span> will result in a type error whereas <span class="fixed">5 * (6 :: Integer)</span> will work just fine and produce an <span class="fixed">Integer</span> because <span class="fixed">5</span> can act like an <span class="fixed">Integer</span> or an <span class="fixed">Int</span>.
+Αποδέχεται δύο αριθμούς που έχουν τον ίδιο τύπο και επιστρέφει έναν αριθμό που έχει τον τύπο αυτό.
+Για τον λόγο αυτό η έκφραση <span class="fixed">(5 :: Int) * (6 :: Integer)</span> θα οδηγήσει σε σφάλμα τύπων.
+Αντίθετα, η έκφραση <span class="fixed">5 * (6 :: Integer)</span> είναι καλή και θα επιστρέψει έναν <span class="fixed">Integer</span> αφού ο αριθμός <span class="fixed">5</span> μπορεί να είναι είτε ένας <span class="fixed">Integer</span> είτε ένας <span class="fixed">Int</span>.
 </p>
-<p>To join <span class="fixed">Num</span>, a type must already be friends with <span class="fixed">Show</span> and <span class="fixed">Eq</span>.</p>
-<p><span class="class label">Integral</span> is also a numeric typeclass. <span class="fixed">Num</span> includes all numbers, including real numbers and integral numbers, <span class="fixed">Integral</span> includes only integral (whole) numbers. In this typeclass are <span class="fixed">Int</span> and <span class="fixed">Integer</span>.</p>
-<p><span class="class label">Floating</span> includes only floating point numbers, so <span class="fixed">Float</span> and <span class="fixed">Double</span>.</p>
-<p>A very useful function for dealing with numbers is <span class="label function">fromIntegral</span>. It has a type declaration of <span class="fixed">fromIntegral :: (Num b, Integral a) =&gt; a -&gt; b</span>. From its type signature we see that it takes an integral number and turns it into a more general number. That's useful when you want integral and floating point types to work together nicely. For instance, the <span class="fixed">length</span> function has a type declaration of <span class="fixed">length :: [a] -&gt; Int</span> instead of having a more general type of <span class="fixed">(Num b) =&gt; length :: [a] -&gt; b</span>. I think that's there for historical reasons or something, although in my opinion, it's pretty stupid. Anyway, if we try to get a length of a list and then add it to <span class="fixed">3.2</span>, we'll get an error because we tried to add together an <span class="fixed">Int</span> and a floating point number. So to get around this, we do <span class="fixed">fromIntegral (length [1,2,3,4]) + 3.2</span> and it all works out.</p>
-<p>Notice that <span class="fixed">fromIntegral</span> has several class constraints in its type signature. That's completely valid and as you can see, the class constraints are separated by commas inside the parentheses.</p>
+<p>Για να γίνει <span class="fixed">Num</span>, ένας τύπος πρέπει να είναι ήδη <span class="fixed">Show</span> και <span class="fixed">Eq</span>.</p>
+<p>Η κλάση <span class="class label">Integral</span> είναι επίσης μια κλάση αριθμών.
+Η κλάση <span class="fixed">Num</span> περιλαμβάνει όλους τους αριθμούς, συμπεριλαμβανομένων των προαγματικών και των ακεραίων.
+Η κλάση <span class="fixed">Integral</span> περιλαμβάνει μόνο (ακέραιους) αριθμούς.
+Στην κλάση αυτή ανοίκουν οι <span class="fixed">Int</span> και <span class="fixed">Integer</span>.</p>
+<p>Η κλάση <span class="class label">Floating</span> περιλαμβάνει αριθμούς κινητής υποδιαστολής, όπως τους 
+<span class="fixed">Float</span> και <span class="fixed">Double</span>.</p>
+<p>Μια πολύ χρήσιμη συνάρτηση που επαιξεργάζεται αριθμούς είναι η <span class="label function">fromIntegral</span>. 
+Ο τύπος της είναι <span class="fixed">fromIntegral :: (Num b, Integral a) =&gt; a -&gt; b</span>. 
+Από τον τύπο αυτό παρατηρούμε ότι δέχεται έναν ακέραιο αριθμό και τον μετατρέπει σε κάποιον πιο γενικό αριθμό.
+Αυτό είναι πολύ χρήσιμο, όταν όταν θες ακέραιους αριθμούς και αριθμούς κινητής υποδιαστολής να συνηπάρχουν.
+Για παράδειγμα, η συνάρτηση <span class="fixed">length</span> είναι ορισμένη με τύπο 
+<span class="fixed">length :: [a] -&gt; Int</span> αντί να έχει τον πιο γενικό τύπο 
+<span class="fixed">(Num b) =&gt; length :: [a] -&gt; b</span>. 
+Πιστέυω ότι αυτό συμβάινει για ιστορικούς λόγους, αν και κατά την γνώμη μου είναι χαζό.
+Σε κάθε περίπτωση, αν πάρουμε το μήκος μιας λίστας και μετά το προσθέσουμε στον αριθμό
+<span class="fixed">3.2</span>, θα έχουμε σφαλμα τύπων, αφού προσπαθήσαμε να προσθέσουμε έναν 
+<span class="fixed">Int</span> με έναν αριθμό κινητής υποδιαστολής.
+Για να παρακάμψουμε αυτό το σφάλμα, γράφουμε 
+<span class="fixed">fromIntegral (length [1,2,3,4]) + 3.2</span> που δουλεύει καλά!</p>
+<p>Παρατηρήστε ότι η συνάρτηση <span class="fixed">fromIntegral</span> έχει πολλαπλούς περιορισμούς κλάσης στον τύπο της.
+Αυτό είναι έγκυρο και όπως βλέπεται, οι περιοριμοί κλάσεις διαχωρίζονται από κόμμα, μέσα στις παρενθέσεις.
+</p>
 
                 <div class="footdiv">
                 <ul>
                     <li style="text-align:left">
-                                                        <a href="starting-out.html" class="prevlink">Starting Out</a>
+                                                        <a href="starting-out.html" class="prevlink">Ας ξεκινήσουμε!</a>
                                             </li>
                     <li style="text-align:center">
-                        <a href="chapters.html">Table of contents</a>
+                        <a href="chapters.html">Περιεχόμενα</a>
                     </li>
                     <li style="text-align:right">
                                                         <a href="syntax-in-functions.html" class="nxtlink">Syntax in Functions</a>
