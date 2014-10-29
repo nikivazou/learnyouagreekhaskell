@@ -23,31 +23,39 @@
                 <div class="footdiv" style="margin-bottom:25px;">
                 <ul>
                     <li style="text-align:left">
-                                                        <a href="introduction.html" class="prevlink">Introduction</a>
+                                                        <a href="introduction.html" class="prevlink">Εισαγωγή</a>
                                             </li>
                     <li style="text-align:center">
-                        <a href="chapters.html">Table of contents</a>
+                        <a href="chapters.html">Περιεχόμενα</a>
                     </li>
                     <li style="text-align:right">
-                                                        <a href="types-and-typeclasses.html" class="nxtlink">Types and Typeclasses</a>
+                                                        <a href="types-and-typeclasses.html" class="nxtlink">Τύποι και κλάσεις τύπων</a>
                                             </li>
                 </ul>
             </div>
-        <h1 style="margin-left:-3px">Starting Out</h1>
-<a name="ready-set-go"></a><h2>Ready, set, go!</h2>
+        <h1 style="margin-left:-3px">Ας ξεκινήσουμε!</h1>
+<a name="ready-set-go"></a><h2>Έτοιμοι? Πάμε!</h2>
 <p>
 <img src="../s3.amazonaws.com/lyah/startingout.png" class="right" alt="egg" width="214" height="187">
-Alright, let's get started! If you're the sort of horrible person who doesn't read introductions to things and you skipped it, you might want to read the last section in the introduction anyway because it explains what you need to follow this tutorial and how we're going to load functions. The first thing we're going to do is run ghc's interactive mode and call some function to get a very basic feel for haskell. Open your terminal and type in <span class="fixed">ghci</span>. You will be greeted with something like this.
+Λοιπόν, ας ξεκινήσουμε!
+Αν είστε από αυτούς τους άθλοιους ανθρώπους που δεν διαβάζουν τις εισαγωγές και παραλείψατε την εισαγωγή, 
+διαβάστε τουλάχιστον την τελευταία ενότητα της εισαγωγής που εξηγεί 
+τι πρέπει να ξέρεται για αυτό το εγχειρίδιο και πώς μπορείτε να φορτώνεται συναρτήσεις.
+Το πρώτο πράγμα που θα κάνουμε είναι να τρέξουμε το διαδραστικό περιβάλλον του ghc και να καλέσουμε κάποιες συναρτήσεις για να πάρουμε μια γεύση από Haskell.
+Ανοίξτε το τερματικό και γράψτε 
+<span class="fixed">ghci</span>. Θα δείτε κάτι σαν το παρακάτω.
 </p>
 <pre name="code" class="haskell: ghci">
 GHCi, version 6.8.2: http://www.haskell.org/ghc/  :? for help
 Loading package base ... linking ... done.
 Prelude&gt;</pre>
 <p>
-Congratulations, you're in GHCI! The prompt here is <span class="fixed">Prelude&gt;</span> but because it can get longer when you load stuff into the session, we're going to use <span class="fixed">ghci&gt;</span>. If you want to have the same prompt, just type in <span class="fixed">:set prompt "ghci&gt; "</span>. 
+Συγχαρητήρια, είστε στον GHCI! 
+Η προτροπή εδώ είναι <span class="fixed">Prelude&gt;</span> αλλά επειδή θα γίνει πολύ μεγαλύτερο όταν φορτώνουμε πράγματα στην συνεδρία, θα χρησημιποιήσουμε απλώς <span class="fixed">ghci&gt;</span>. 
+Αν θέλετε να έχετε την ίδια προτροπή, απλώς γράψτε <span class="fixed">:set prompt "ghci&gt; "</span>. 
 </p>
 <p>
-Here's some simple arithmetic.
+Ξεκινάμε με απλή αριθμητική.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; 2 + 15
@@ -60,7 +68,8 @@ ghci&gt; 5 / 2
 2.5
 ghci&gt;</pre>
 <p>
-This is pretty self-explanatory. We can also use several operators on one line and all the usual precedence rules are obeyed. We can use parentheses to make the precedence explicit or to change it.
+Αυτό είναι αρκετά απλό. Μπορούμε επίσης να χρησιμοποιήσουμε πολλούς τελεστές στην ίδια γραμμη και οι σύνηθεις κανόνες προταιρεότητας ακολουθούνται.
+Μπορούμε να χρησιμοποιοήσουμε παρενθέσεις για να καθορίσουμε ρητά την προταιρεότητα των τελεστών, ή να την αλλάξουμε.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; (50 * 100) - 4999
@@ -70,10 +79,14 @@ ghci&gt; 50 * 100 - 4999
 ghci&gt; 50 * (100 - 4999)
 -244950</pre>
 <p>
-Pretty cool, huh? Yeah, I know it's not but bear with me. A little pitfall to watch out for here is negating numbers. If we want to have a negative number, it's always best to surround it with parentheses. Doing <span class="fixed">5 * -3</span> will make GHCI yell at you but doing <span class="fixed">5 * (-3)</span> will work just fine.
+Ενδιαφέρον ε? Χμμμ, ξέρω δεν είναι και τόσο ενδιαφέρον, αλλά μείνεται μαζί μου!
+Μια παγίδα που πρέπει να προσέχεται είναι το πώς δημιουργούμε αρνητικούς αριθμούς.
+Αν θέλετε να δημιουργήσεται έναν αρνητικό αριθμό, είναι προτειμότερο να τον περικλείσεται σε παρενθέσεις.
+Ο GHCI θα γκρινιάξει με την έκφραση <span class="fixed">5 * -3</span>, αλλά η έκφραση <span class="fixed">5 * (-3)</span> θα του αρέσει.
 </p>
 <p>
-Boolean algebra is also pretty straightforward. As you probably know, <span class="fixed">&amp;&amp;</span> means a boolean <i>and</i>, <span class="fixed">||</span> means a boolean <i>or</i>. <span class="fixed">not</span> negates a <span class="fixed">True</span> or a <span class="fixed">False</span>.
+Η αριθμητική Boolean είναι επίσης αρκετά απλή. 
+Όπως ίσως ξέρεται, το <span class="fixed">&amp;&amp;</span> είναι το λογικό <i>και</i>, το <span class="fixed">||</span> είναι το λογικό <i>ή</i>. Το <span class="fixed">not</span> αντιστρέφει το <span class="fixed">True</span> σε <span class="fixed">False</span> και αντίστροφα.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; True &amp;&amp; False
@@ -87,7 +100,7 @@ True
 ghci&gt; not (True &amp;&amp; True)
 False</pre>
 <p>
-Testing for equality is done like so.
+Ο έλεγχος για ισότητα γίνεται ως εξής.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; 5 == 5
@@ -101,7 +114,8 @@ True
 ghci&gt; "hello" == "hello"
 True </pre>
 <p>
-What about doing <span class="fixed">5 + "llama"</span> or <span class="fixed">5 == True</span>? Well, if we try the first snippet, we get a big scary error message!
+Τι γίνεται αν γράψουμε <span class="fixed">5 + "llama"</span> ή <span class="fixed">5 == True</span>;
+Λοιπόν, αν δοκιμάζουμε την πρώτη έκφραση, θα πάρουμε ένα μεγάλο τρομακτικό σφάλμα τύπων!
 </p>
 <pre name="code" class="haskell: ghci">
 No instance for (Num [Char])
@@ -110,20 +124,48 @@ Possible fix: add an instance declaration for (Num [Char])
 In the expression: 5 + "llama"
 In the definition of `it': it = 5 + "llama" </pre>
 <p>
-Yikes! What GHCI is telling us here is that <span class="fixed">"llama"</span> is not a number and so it doesn't know how to add it to 5. Even if it wasn't <span class="fixed">"llama"</span> but <span class="fixed">"four"</span> or <span class="fixed">"4"</span>, Haskell still wouldn't consider it to be a number. <span class="fixed">+</span> expects its left and right side to be numbers. If we tried to do <span class="fixed">True == 5</span>, GHCI would tell us that the types don't match. Whereas <span class="fixed">+</span> works only on things that are considered numbers, <span class="fixed">==</span> works on any two things that can be compared. But the catch is that they both have to be the same type of thing. You can't compare apples and oranges. We'll take a closer look at types a bit later. Note: you can do <span class="fixed">5 + 4.0</span> because <span class="fixed">5</span> is sneaky and can act like an integer or a floating-point number. <span class="fixed">4.0</span> can't act like an integer, so <span class="fixed">5</span> is the one that has to adapt.
+Ουπς! 
+Αυτό που προσπαθεί να μας πει εδώ ο GHCI είναι ότι το <span class="fixed">"llama"</span> 
+δεν είναι αριθμός, άρα δεν ξέρει πως να το προσθέσει στον αριθμό 5.
+Ακόμα και αν δεν ήταν <span class="fixed">"llama"</span> αλλά <span class="fixed">"four"</span> ή <span class="fixed">"4"</span>, η Haskell πάλι δεν θα το θεωρούσε αριθμό.
+Ο τελεστής <span class="fixed">+</span> απαιτεί το αριστερό και το δεξί μέρος του να είναι αριθμοί.
+Αν επιχειρήσουμε <span class="fixed">True == 5</span>, ο GHCI θα μας πει ότι οι τύποι δεν ταιριάζουν. 
+Όπως ο τελεστής <span class="fixed">+</span> δουλεύει μόνο σε εκφράσεις που είναι αριθμοί, ο τελεστής 
+<span class="fixed">==</span> δουλεέυει μόνο σε πράγματα που μπορούν να συγκριθούν.
+Επιπλέον όμως και οι δύο πλευρές πρέπει να είναι πράγματα που έχουν τον ίδιο τύπο.
+Δεν μπορείς να συγκρίνεις μήλα με πορτοκάλια!
+Θα εξετάσουμε καλύτερα τους τύπους σε λίγο.
+Σημείωση: μπορείς να κάνεις <span class="fixed">5 + 4.0</span> επειδή το <span class="fixed">5</span> είναι ύπουλο και μπορεί να συμπεριφερθεί είτε σαν ακέραιος, είτε σαν αριθμός κινητής υποδιαστολής.
+Όμως ο <span class="fixed">4.0</span> δεν μπορεί να συμπεριφερθεί σαν ακεραιος, άρα ο <span class="fixed">5</span> είναι αυτός που πρέπει να προσαρμοστεί.
 </p>
 <p>
-You may not have known it but we've been using functions now all along. For instance, <span class="fixed">*</span> is a function that takes two numbers and multiplies them. As you've seen, we call it by sandwiching it between them. This is what we call an <i>infix</i> function. Most functions that aren't used with numbers are <i>prefix</i> functions. Let's take a look at them. 
+Μπορεί να μην το καταλάβατε, αλλά χρησιμοποιείτε ήδη συναρτήσεις!
+Για παράδειγμα, ο τελεστής <span class="fixed">*</span> είναι μία συνάρτηση που δέχεται δύο αριθμούς και τους πολλαπλασιάζει.
+Όπως είδαμε, τον χρησιμοποιούμε ανάμεσα από τους δύο αριθμούς. 
+Για τον λόγο αυτό καλούμε αυτόν τον τελεστή <i>ένθετη</i> συνάρτηση. 
+Οι περισσότερες συναρτήσεις που δεν δέχονται αριθμούς είναι 
+<i>πρόθετες</i> συναρτήσεις.
+Ας τις δούμε.
 </p>
 <p>
 <img src="../s3.amazonaws.com/lyah/ringring.png" alt="phoen" class="right" width="160" height="161">
-Functions are usually prefix so from now on we won't explicitly state that a function is of the prefix form, we'll just assume it. In most imperative languages functions are called by writing the function name and then writing its parameters in parentheses, usually separated by commas. In Haskell, functions are called by writing the function name, a space and then the parameters, separated by spaces. For a start, we'll try calling one of the most boring functions in Haskell.
+Οι περισσότερες συναρτήσεις είναι πρόθετες, για αυτό από εδώ και πέρα δεν θα λέμε ρητά ότι μία συνάρτηση έχει πρόθετη μορφή, απλώς θα το υποθέτουμε.
+Στις περισσότερες γλώσσες προγραμματισμού καλούμε μια συνμάρτηση γράφοντας το όνομα της συνάρτησης και μετά γράφουμε τα ορισματά της σε παρένθεση, συνήθως χωριζοντάς τα με κόμμα.
+Στην Haskell καλούμε μια συνάρτηση γράφοντας το όνομα της συνάρτησης, κενό και μετά τα ορίσματα, χωρισμένα με κενά.
+Θα ξεκινήσουμε καλώντας μια από τις πιο βαρετές συναρτήσεις της Haskell.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; succ 8
 9 </pre>
 <p>
-The <span class="fixed">succ</span> function takes anything that has a defined successor and returns that successor. As you can see, we just separate the function name from the parameter with a space. Calling a function with several parameters is also simple. The functions <span class="fixed">min</span> and <span class="fixed">max</span> take two things that can be put in an order (like numbers!). <span class="fixed">min</span> returns the one that's lesser and <span class="fixed">max</span> returns the one that's greater. See for yourself:
+Η συνάρτηση <span class="fixed">succ</span> δέχεται ο,τιδήποτε έχει επόμενο και επιστρέφει τον επομενό του.
+Όπως βλέπετε, απλώς χωρίζουμε το όνομα της συνάρτησης από το όρισμά της με κενό.
+Η κλήση μιας συνάρτησης με πολλά ορίσματα είναι εξήσου απλή.
+Οι συναρτήσεις <span class="fixed">min</span> και <span class="fixed">max</span> 
+δέχονται δύο πράγματα που μπορούν να διαταχθούν (για παράδειγμα, δύο αριθμούς).
+Η συνάρτηση <span class="fixed">min</span> επιστρέφει το μικρότερο ενώ η συνάρτηση 
+<span class="fixed">max</span> επιστρέφει το μεγαλύτερο. 
+Δείτε και μόνοι σας:
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; min 9 10
@@ -134,7 +176,8 @@ ghci&gt; max 100 101
 101 </pre>
 
 <p>
-Function application (calling a function by putting a space after it and then typing out the parameters) has the highest precedence of them all. What that means for us is that these two statements are equivalent.
+Η εφαρμοφή συναρτήσεων (η κλήση μιας συνάρτησης βάζοντας κενό μετά το ονομά της και μετά γράφοντας τα ορίσματά της) έχει την μεγαλύτερη προτεραιότητα από τα πάντα.
+Αυτό για εμάς σημαίνει ότι οι δύο ακόλουθες εκφράσεις είναι ισοδύναμες.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; succ 9 + max 5 4 + 1
@@ -143,18 +186,43 @@ ghci&gt; (succ 9) + (max 5 4) + 1
 16
 </pre>
 <p>
-However, if we wanted to get the successor of the product of numbers 9 and 10, we couldn't write <span class="fixed">succ 9 * 10</span> because that would get the successor of 9, which would then be multiplied by 10. So 100. We'd have to write <span class="fixed">succ (9 * 10)</span> to get 91.
+Όμως, αν θέλουμε να πάρουμε τον επόμενο του γινομένου των αριθμών 9 ακι 10, 
+δεν μπορούμε να γράψουμε <span class="fixed">succ 9 * 10</span> 
+γιατί αυτό θα επιστρέψει τον επόμενο του 9 και μετά θα τον πολλαπλασιάσει με το 10.
+Με άλλα λόγια, θα δώσει 100.
+Αντίθετα, πρέπει να γράψουμε <span class="fixed">succ (9 * 10)</span> για να πάρουμε 91.
 </p>
-<p>If a function takes two parameters, we can also call it as an infix function by surrounding it with backticks. For instance, the <span class="fixed">div</span> function takes two integers and does integral division between them. Doing <span class="fixed">div 92 10</span> results in a 9. But when we call it like that, there may be some confusion as to which number is doing the division and which one is being divided. So we can call it as an infix function by doing <span class="fixed">92 `div` 10</span> and suddenly it's much clearer. </p>
-<p>Lots of people who come from imperative languages tend to stick to the notion that parentheses should denote function application. For example, in C, you use parentheses to call functions like <span class="fixed">foo()</span>, <span class="fixed">bar(1)</span> or <span class="fixed">baz(3, "haha")</span>. Like we said, spaces are used for function application in Haskell. So those functions in Haskell would be <span class="fixed">foo</span>, <span class="fixed">bar 1</span> and <span class="fixed">baz 3 "haha"</span>. So if you see something like <span class="fixed">bar (bar 3)</span>, it doesn't mean that <span class="fixed">bar</span> is called with <span class="fixed">bar</span> and <span class="fixed">3</span> as parameters. It means that we first call the function <span class="fixed">bar</span> with <span class="fixed">3</span> as the parameter to get some number and then we call <span class="fixed">bar</span> again with that number. In C, that would be something like <span class="fixed">bar(bar(3))</span>.</p>
-<a name="babys-first-functions"></a><h2>Baby's first functions</h2>
 <p>
-In the previous section we got a basic feel for calling functions. Now let's try making our own! Open up your favorite text editor and punch in this function that takes a number and multiplies it by two.
+Αν μια συνάρτηση δέχεται δύο ορίσματα, 
+μπορούμε να την χρησιμοποιήσουμε σαν ένθετη, αν την εγκλείσουμε σε βαρείες.
+Για παράδειγμα, η συνάρτηση <span class="fixed">div</span> δέχεται δύο ακεραίους και επιστρέφει την ακέραια διαίρεση αυτών. 
+Η έκφραση <span class="fixed">div 92 10</span> δίνει 9. 
+Αλλά αν γράψουμε έτσι την διαίρεση, μπορεί να υπάρξει σύγχηση ως προς το ποιός είναι ο διαιρέτης και ποιός ο διαιρετέος.
+Για τον λόγο αυτό, μπορούμε να την καλέσουμε σαν ένθετο τελεστή γράφοντας <span class="fixed">92 `div` 10</span>και ξαφνικά όλα είναι ξεκάθαρα! </p>
+<p>Πολλοί, που έρχονται από προστακτικές γλώσσες, πιστεύουν ότι οι παρενθέσεις δηλώνουν εφαρμογή συνάρτησης.
+Για παράδειγμα, στην C, χρησιμοποιούμε παρενθέσεις για να καλέσουμε συναρτήσεις, όπως <span class="fixed">foo()</span>, <span class="fixed">bar(1)</span> ή <span class="fixed">baz(3, "haha")</span>. 
+Όπως είπαμε, στην Haskell για να καλέσουμε συναρτήσεις χρησιμοποιούμε κενά.
+Άρα οι προηγούμενες συναρτήσεις στην Haskell για είναι <span class="fixed">foo</span>, <span class="fixed">bar 1</span> και <span class="fixed">baz 3 "haha"</span>. 
+Έτσι, η έκφραση <span class="fixed">bar (bar 3)</span>, δεν σημαίνει ότι η συνάρτηση <span class="fixed">bar</span> καλείτε με ορίσματα <span class="fixed">bar</span> και <span class="fixed">3</span>. 
+Αλλά σημαίνει ότι πρώτα καλούμε την συνάρτηση <span class="fixed">bar</span> με όρισμα <span class="fixed">3</span>, παίρνουμε το αποτέλεσμα της κλήσης και μετά καλούμε την συνάρτηση <span class="fixed">bar</span> ξανά με το αποτέλεσμα αυτό.
+Στην C, αυτό θα γραφόταν <span class="fixed">bar(bar(3))</span>.</p>
+
+<a name="babys-first-functions"></a><h2>Βρεφικές συναρτήσεις</h2>
+<p>
+Στην προηγούμενη ενότητα πήραμε μια ιδέα του πώς καλούμε συναρτήσεις. 
+Τώρα ας δοκιμάσουμε να ορίσουμε τις δικές μας συναρτήσεις!
+Ανοίξτε τον αγαπημένο σας επαιξεργαστή κειμένου και βάλτε μέσα την ακόλουθη συνάρτηση που δέχεται έναν αριθμό και τον πολλαπλασιάζει με το δύο. 
 </p>
 <pre name="code" class="haskell: hs">
 doubleMe x = x + x</pre>
 <p>
-Functions are defined in a similar way that they are called. The function name is followed by parameters seperated by spaces. But when defining functions, there's a <span class="fixed">=</span> and after that we define what the function does. Save this as <span class="fixed">baby.hs</span> or something. Now navigate to where it's saved and run <span class="fixed">ghci</span> from there. Once inside GHCI, do <span class="fixed">:l baby</span>. Now that our script is loaded, we can play with the function that we defined.
+Οι συναρτήσεις ορίζονται με τρόπο παρόμοιο με αυτόν που καλούνται.
+Το όνομα της συνάρτησης ακολουθείτε από τα ορίσματά της, χωρισμένα με κενά.
+Αλλά όταν ορίζουμε συναρτήσεις, υπάρχει ένα <span class="fixed">=</span> και μετά ορίζουμε τι κάνει η συνάρτηση.
+Σώστε αυτό σε κάποιο αρχείο, όπως <span class="fixed">baby.hs</span>.
+Τώρα πηγαίντε εκεί που το σώσατε και τρέξτε <span class="fixed">ghci</span> στο τερματικό. 
+Όταν είστε στον GHCI, γράψτε <span class="fixed">:l baby</span>. 
+Τώρα που το αρχείο σας έχει φορτωθεί, μπορύμε να παίξουμε με την συνάρτηση που ορίσαμε.
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; :l baby
@@ -165,12 +233,16 @@ ghci&gt; doubleMe 9
 ghci&gt; doubleMe 8.3
 16.6 </pre>
 <p>
-Because <span class="fixed">+</span> works on integers as well as on floating-point numbers (anything that can be considered a number, really), our function also works on any number. Let's make a function that takes two numbers and multiplies each by two and then adds them together.
+Επειδή ο τελεστής <span class="fixed">+</span> δέχεται ακεραίους αλλά και αριθμόυς κινητής υποδιαστολής
+(στην πραγματικότητα δέχεται ό,τιδήποτε μπορεί να θεωρηθεί αριθμός), η συνάρτηση μας επίσης δέχεται κάθε αριθμό.
+Ας ορίσμουμε τώρα μια συνάρηση που δέχεται δύο αριθμόυς και πολλαπλασιάζει καθέναν με το δύο και μετά τους προσθέτει.
 </p>
 <pre name="code" class="haskell: hs">
 doubleUs x y = x*2 + y*2 </pre>
 <p>
-Simple. We could have also defined it as <span class="fixed">doubleUs x y = x + x + y + y</span>. Testing it out produces pretty predictable results (remember to append this function to the <span class="fixed">baby.hs</span> file, save it and then do <span class="fixed">:l baby</span> inside GHCI).
+Απλό. Θα μπορούσαμε επίσης να την ορίσουμε ως <span class="fixed">doubleUs x y = x + x + y + y</span>. 
+Ας τεστάρουμε την συνάρτηση μας 
+(για τον σκοπό αυτό προσθέστε την συνάρτηση στο αρχείο <span class="fixed">baby.hs</span>, σώστε το αρχέιο και μετά γράψτε <span class="fixed">:l baby</span> στον GHCI).
 </p>
 <pre name="code" class="haskell: ghci">
 ghci&gt; doubleUs 4 9
@@ -181,15 +253,23 @@ ghci&gt; doubleUs 28 88 + doubleMe 123
 478
 </pre>
 <p>
-As expected, you can call your own functions from other functions that you made. With that in mind, we could redefine <span class="fixed">doubleUs</span> like this:
+Όπως περιμένατε, μπορείτε να καλείτε τις δικές σας συναρτήσεις από από άλλες συναρτήσεις που ορίσατε.
+Γνωρίζοντας αυτό, μπορούμε να ορίσουμε την συνάρτηση <span class="fixed">doubleUs</span> ξανά, ως εξής:
 </p>
 <pre name="code" class="haskell: hs">
 doubleUs x y = doubleMe x + doubleMe y </pre>
 <p>
-This is a very simple example of a common pattern you will see throughout Haskell. Making basic functions that are obviously correct and then combining them into more complex functions. This way you also avoid repetition. What if some mathematicians figured out that 2 is actually 3 and you had to change your program? You could just redefine <span class="fixed">doubleMe</span> to be <span class="fixed">x + x + x</span> and since <span class="fixed">doubleUs</span> calls <span class="fixed">doubleMe</span>, it would automatically work in this strange new world where 2 is 3.
+Αυτό είναι ένα πολύ απλό παράδειγμα ενός μοτίβου που θα δείτε πολύ συχνά σητν Haskell.
+Ορίζουμε βασικές συναρτήσεις που είναι προφανώς σωστές και μετά τις χρησιμοποιούμε για να χτήσουμε πιο πολύπλοκες συναρτήσεις.
+Με τον τρόπο αυτό αποφεύγουμε την επανάλληψη.
+Τι θα συνέβαινε αν κάποιος μαθηματικός καταλάβαινε ότι το 2 είναι στην πραγματικότητα 3 και έπρεπε να αλλάξετε το προγραμμά σας;
+Θα μπορούσατε απλώς να αλλάζατε την συνάρτηση
+<span class="fixed">doubleMe</span> σε <span class="fixed">x + x + x</span> και επειδή η συνάρτηση <span class="fixed">doubleUs</span> καλεί την <span class="fixed">doubleMe</span>, 
+όλα θα δούλευαν στον παράξενο κόσμο στον οποίο το 2 είναι 3.
 </p>
-<p>Functions in Haskell don't have to be in any particular order, so it doesn't matter if you define <span class="fixed">doubleMe</span> first and then  <span class="fixed">doubleUs</span> or if you do it the other way around.</p>
-<p>Now we're going to make a function that multiplies a number by 2 but only if that number is smaller than or equal to 100 because numbers bigger than 100 are big enough as it is!
+<p>Οι συναρτήσεις στην Haskell δεν πρέπει να είναι ορισμένες σε κάποια προκαθορισμένη σειρά, 
+άρα είναι το ίδιο αν ορίσεις πρώτα την <span class="fixed">doubleMe</span> και μετά την <span class="fixed">doubleUs</span> ή ανάποδα.</p>
+<p>Τώρα θα ορίσουμε μια συνάρτηση που πολλαπλασιάζει έναν αριθμό με το 2, αλλά μόνο αν ο αριθμός αυτός είναι μικρότερος ή ίσος με 100, αφού οι αριθμόι που είναι μεγαλύτεροι από 100 είναι ήδη αρκετά μεγάλοι!
 </p>
 <pre name="code" class="haskell: hs">
 doubleSmallNumber x = if x &gt; 100
@@ -197,20 +277,44 @@ doubleSmallNumber x = if x &gt; 100
                         else x*2 </pre>
 <img src="../s3.amazonaws.com/lyah/baby.png" alt="this is you" class="left" width="140" height="211">
 <p>
-Right here we introduced Haskell's if statement. You're probably familiar with if statements from other languages. The difference between Haskell's if statement and if statements in imperative languages is that the else part is mandatory in Haskell. In imperative languages you can just skip a couple of steps if the condition isn't satisfied but in Haskell every expression and function must return something. We could have also written that if statement in one line but I find this way more readable. Another thing about the if statement in Haskell is that it is an <i>expression</i>. An expression is basically a piece of code that returns a value. <span class="fixed">5</span> is an expression because it returns 5, <span class="fixed">4 + 8</span> is an expression, <span class="fixed">x + y</span> is an expression because it returns the sum of <span class="fixed">x</span> and <span class="fixed">y</span>. Because the else is mandatory, an if statement will always return something and that's why it's an expression. If we wanted to add one to every number that's produced in our previous function, we could have written its body like this.
+Εδώ εισάγουμε τον όρο if της Haskell.
+Ίσως ήδη γνωρίζεται τον όρο if από άλλες γλώσσες προγραμματισμού.
+Η διαφορά μεταξύ του όρου if στην Haskell και στις άλλες γλώσσες προγραμματισού είναι ότι το else κομμάτι είναι υποχρεωτικό στην Haskell.
+Στις προστακτικές γλώσσες μπορείς απλώς να παρακάμψεις κάποια βήματα αν η προϋπόθεση του όρου if δεν πληρείτε, 
+αλλά στην Haskell κάθε έκφραση και κάθε συνάρτηση πρέπει να επιστρέψει κάτι.
+Θα μπορούσαμε να είχαμε γράψει τον όρο if σε μία γραμμή, αλλά προσωπικά βρήσκω αυτόν τον τρόπο γραφής πιο ευανάγνωστο.
+Ένα άλλο σημαντικό πράγμα για το ιf όρο της Haskell είναι ότι είναι μια <i>έκφραση</i>. 
+Μια έκφραση είναι βασικά ένα κομμάτι κώδικα που επιστρέφει μια τιμή.
+Το <span class="fixed">5</span> είναι μια έκφραση επειδή επιστρέφει 5, 
+το <span class="fixed">4 + 8</span> είναι μια έκφραση, επίσης το <span class="fixed">x + y</span> είναι μια έκφραση επειδή επιστρέφει το άθροισμα των
+<span class="fixed">x</span> και <span class="fixed">y</span>. 
+Αφού το else τμήμα είναι υποχρεωτικό, κάθε όρος if πάντα θα επιστρέφει κάτι και για τον λόγο αυτό είναι μια έκφραση.
+Αν θέλαμε να προσθέσουμε ένα σε κάθε αριθμό που παράγεται από την προηγούμενη συνάρτησή μας, θα μπορούσαμε να είχαμε ορίσει το σώμα της ως εξής: 
 </p>
 <pre name="code" class="haskell: hs">
 doubleSmallNumber' x = (if x &gt; 100 then x else x*2) + 1
 </pre>
 <p>
-Had we omitted the parentheses, it would have added one only if <span class="fixed">x</span> wasn't greater than 100. Note the <span class="fixed">'</span> at the end of the function name. That apostrophe doesn't have any special meaning in Haskell's syntax. It's a valid character to use in a function name. We usually use <span class="fixed">'</span> to either denote a strict version of a function (one that isn't lazy) or a slightly modified version of a function or a variable. Because <span class="fixed">'</span> is a valid character in functions, we can make a function like this.
+Αν παραλείψουμε την παρένθεση, θα προσθέταμε ένα μόνο όταν το <span class="fixed">x</span> δεν είναι μεγαλύτερο από 100.
+Προσέψτε το <span class="fixed">'</span> στο τέλος του ονόματος της συνάρτησης.
+Η απόστροφος δεν έχει κάποιο ειδικό νόημα στην σύνταξη της Haskell.
+Είναι ένας χαρακτύρας που μπορούμε έγκυρα να χρησιμοποιούμε σε ονόματα συναρτήσεων.
+Συνήθως χρησιμοποιούμε <span class="fixed">'</span> να ορίσουμε μια οκνηρή εκδοχή μιας συνάρτησης (μια εκδοχή που δεν είναι οκνηρή) ή μια λίγο αλλαγμένη εκδοχή μιας συνάρτησης ή μεταβλητής.
+Επειδή ο χαρακτήρας <span class="fixed">'</span> είναι ένας έγκυρος χαρακτήρας σε ονόματα συναρτήσεων, 
+μπορείτε να ορίσετε μια συνάρτηση ως εξής:
 </p>
 <pre name="code" class="haskell: hs">
 conanO'Brien = "It's a-me, Conan O'Brien!" </pre>
 <p>
-There are two noteworthy things here. The first is that in the function name we didn't capitalize Conan's name. That's because functions can't begin with uppercase letters. We'll see why a bit later. The second thing is that this function doesn't take any parameters. When a function doesn't take any parameters, we usually say it's a <i>definition</i> (or a <i>name</i>). Because we can't change what names (and functions) mean once we've defined them, <span class="fixed">conanO'Brien</span> and the string <span class="fixed">"It's a-me, Conan O'Brien!"</span> can be used interchangeably.
+Υπάρχουν δύο αξιοσημείωτα πράγματα εδώ.
+Το πρώτο είναι ότι στον όνομα της συνάρτησης δεν μπορούμς να χρησημοποιήσουμε κεφαλαίους χαρακτήρες για τον όνομα του Conan. 
+Αυτό συμβαίνει επεισή τα ονόματα συναρτήσεων δεν μπορούν να ξεκινούν με κεφαλαίους χαρακτήρες. Θα δούμε αργότερα το γιατί.
+Το δέυτερο που αξίζει να σημειωθεί είναι ότι αυτή η συνάρτηση δεν δέχεται κανένα όρισμα.
+Όταν μια συνάρτηση δεν δέχεται κανένα όρισμα, λέμε ότι είναι ένας <i>ορισμός</i> (ή ένα <i>όνομα</i>). 
+Επειδή δεν μπορούμε να αλλάξουμε την σημασία των ονομάτων (και των συναρήσεων) 
+αφού τα ορίσουμε, το όνομα <span class="fixed">conanO'Brien</span> και η ακολουθία χαρακτήρων <span class="fixed">"It's a-me, Conan O'Brien!"</span> είναι ισοδύναμα.
 </p>
-<a name="an-intro-to-lists"></a><h2>An intro to lists</h2>
+<a name="an-intro-to-lists"></a><h2>Εισαγωγή στις λίστες</h2>
 <p>
 <img src="../s3.amazonaws.com/lyah/list.png" alt="BUY A DOG" class="left" width="150" height="103">
 Much like shopping lists in the real world, lists in Haskell are very useful. It's the most used data structure and it can be used in a multitude of different ways to model and solve a whole bunch of problems. Lists are SO awesome. In this section we'll look at the basics of lists, strings (which are lists) and list comprehensions.
@@ -543,13 +647,13 @@ ghci&gt; rightTriangles'
                 <div class="footdiv">
                 <ul>
                     <li style="text-align:left">
-                                                        <a href="introduction.html" class="prevlink">Introduction</a>
+                                                        <a href="introduction.html" class="prevlink">Εισαγωγή</a>
                                             </li>
                     <li style="text-align:center">
-                        <a href="chapters.html">Table of contents</a>
+                        <a href="chapters.html">Περιεχόμενα</a>
                     </li>
                     <li style="text-align:right">
-                                                        <a href="types-and-typeclasses.html" class="nxtlink">Types and Typeclasses</a>
+                                                        <a href="types-and-typeclasses.html" class="nxtlink">Τύποι και κλάσεις τύπων</a>
                                             </li>
                 </ul>
             </div>
