@@ -36,8 +36,16 @@
         <h1 style="margin-left:-3px">Syntax in Functions</h1>
 <a name="pattern-matching"></a><h2>Pattern matching</h2>
 <img src="../s3.amazonaws.com/lyah/pattern.png" alt="four!" class="right" width="162" height="250">
-<p>This chapter will cover some of Haskell's cool syntactic constructs and we'll start with pattern matching. Pattern matching consists of specifying patterns to which some data should conform and then checking to see if it does and deconstructing the data according to those patterns.</p>
-<p>When defining functions, you can define separate function bodies for different patterns. This leads to really neat code that's simple and readable. You can pattern match on any data type &mdash; numbers, characters, lists, tuples, etc. Let's make a really trivial function that checks if the number we supplied to it is a seven or not.</p>
+<p>Αυτο το καιφάλαιο καλύπτει συντακτικές δομές της Haskell και ξεκινάει με το ταίριασμα προτύπων
+    Το ταίριασμα προτύπων καθορίζει προτυπα στα οποία τα τα δεδομένα πρέπει να ταιριαζουν και μετά
+    τεστάτει αν τα δεδομένα πραγματικά ταιριάζουν στα προτυπα και αναλόγως αποδομεί τα δεδομάνε.
+</p>
+<p>
+    Όταν ορίζεις συναρτήσεις, μπορείς να ορίσεις διαφορετικά σώματα συνάρτησεις για κάθε προπτυπο ορισματος. 
+    Αυτό οδηγεί σε τακτκό κώδικά που είναι απλός και ευαναγνωστος.
+    Μπορείς να ταιριαξεις προτυπα σε οποιαδηποτε δομή &mdash; νούμερα, χαρακτήρες, λίστες, ζεύγη, κτλ. 
+    Ας γράψουμε μια πολύ απλή συνάρτηση που ελέγχει αν ένας αριθμός είναι επτά ή όχι. 
+</p>
 <pre name="code" class="haskell: hs">
 lucky :: (Integral a) =&gt; a -&gt; String
 lucky 7 = "LUCKY NUMBER SEVEN!"
